@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import Input from "./Input";
+import Button from "./Button";
 
 export function Form({
   setDishes
@@ -14,27 +16,58 @@ export function Form({
     ingredients: []
   }
 
-  const [dish, setDish] = useState<Dish>()
+  const [dish, setDish] = useState<Dish>(defaultDish);
 
   return (
-    <View>
-      <Text>Dados do prato</Text>
+    <View style={{ gap: 12 }}>
+      <Text style={styles.formTitle}>Dados do prato</Text>
 
-      <View>
-        <TextInput />
-        <TextInput />
+      <View style={{ gap: 8 }}>
+        <Input 
+          labelText="Nome do prato"
+          onChangeText={name => setDish(prev => ({...prev, name}))}
+        />
 
-        <View>
-          <TextInput />
-          <TextInput />
+        <Input
+          labelText="Tipo"
+          onChangeText={category => setDish(prev => ({...prev, category}))}
+        />
+
+        <View style={{ flexDirection: "row", gap: 12 }}>
+          <Input
+            labelText="Calorias"
+            onChangeText={calories => setDish(prev => ({...prev, calories}))}
+          />
+
+          <Input
+            labelText="Link da imagem"
+            onChangeText={imageUrl => setDish(prev => ({...prev, imageUrl}))}
+          />
         </View>
 
-        <TextInput />
+        <Input
+          labelText="Ingredientes"
+          onChangeText={ingredientsString => {
+            const ingredients = ingredientsString.split(',');
+            if (ingredients[ingredients.length - 1] === "") ingredients.pop();
+            setDish(prev => ({...prev, ingredients}));
+          }}
+        />
       </View>
 
-      <Pressable>
-        <Text>Salvar Prato</Text>
-      </Pressable>
+      <Button
+        onPress={() => setDishes(prev => [...prev, dish])}
+      >
+        Salvar Prato
+      </Button>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  formTitle: {
+    fontSize: 24,
+    fontWeight: "600",
+    textAlign: "center"
+  }
+})

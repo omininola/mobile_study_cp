@@ -7,9 +7,9 @@ export default function Header() {
 
       <ImageBackground
         source={{ uri: "https://439623b66ef2e32ac2ca-878d8b04b2333a4ce60ced655a975a22.ssl.cf3.rackcdn.com/Plate_Split.jpg"}}
-        imageStyle={styles.foodImage}
+        style={styles.foodImage}
       >
-        <Text>Alimentação saúdavel</Text>
+        <Text style={styles.imageText}>Alimentação Saudável</Text>
       </ImageBackground>
     </View>
   );
@@ -23,13 +23,18 @@ const styles = StyleSheet.create({
   },
 
   foodImage: {
-    width: "100%",
-    height: "100%",
     flex: 1,
-    alignItems: "center",
+    resizeMode: "cover",
     justifyContent: "center",
+    alignItems: "center"
+  },
+
+  imageText: {
+    fontSize: 24,
     textAlign: "center",
-    textAlignVertical: "center",
-    resizeMode: "cover"
+    backgroundColor: "#000000c0",
+    color: "white",
+    padding: 8,
+    borderRadius: 8
   }
 });
